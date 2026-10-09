@@ -23,7 +23,7 @@ source:
     target_directory: thirdparty/implot
 
 build:
-  number: 0
+  number: 1
   script:
     # Sources are identical across platforms, so checking on unix is sufficient.
     - if: unix
