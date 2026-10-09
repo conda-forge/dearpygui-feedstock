@@ -14,6 +14,7 @@ source:
     sha256: d86822978f7856ea8556a715bb84d0ed4f909720c9ec78f6e1ec20102ad73ee2
     patches:
       - patches/0001-Build-with-conda-forge-toolchain-and-system-glfw-fre.patch
+      - patches/0002-Find-Python-with-Interpreter-and-Development.Module-.patch
   # git submodules pinned by DearPyGui (imgui docking branch with DearPyGui-specific config)
   - url: https://github.com/ocornut/imgui/archive/${{ imgui_commit }}.tar.gz
     sha256: cd1cd7d279e568217e9caef0d49b2f199edc65cf0b9497712bc422cef5339bc0

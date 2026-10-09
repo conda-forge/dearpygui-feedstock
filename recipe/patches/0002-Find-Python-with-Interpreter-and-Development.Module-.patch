@@ -1,0 +1,35 @@
+From 1d5eaba0d05ef777fb391a7bcd83c807b4fe8551 Mon Sep 17 00:00:00 2001
+From: Pavel Zwerschke <pavel.zwerschke@quantco.com>
+Date: Fri, 9 Oct 2026 22:54:25 +0200
+Subject: [PATCH] Find Python with Interpreter and Development.Module
+ components
+
+- Request the Interpreter component so FindPython queries sysconfig for
+  the include directory. Otherwise it only probes hardcoded path
+  suffixes, and since Python 3.15 conda-forge's Windows Python installs
+  its headers into %PREFIX%\include\python, which is not among them.
+- Only request Development.Module instead of Development. An extension
+  module doesn't need to link against libpython (except on Windows,
+  where Development.Module still provides it), and Python 3.15 on
+  conda-forge no longer ships libpython with the python package on unix.
+---
+ src/distribution.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/distribution.cmake b/src/distribution.cmake
+index be9463a..808783f 100644
+--- a/src/distribution.cmake
++++ b/src/distribution.cmake
+@@ -1,7 +1,7 @@
+ cmake_minimum_required (VERSION 3.16)
+ 
+-find_package (Python ${MV_PY_VERSION} EXACT COMPONENTS Development)
+-if(NOT Python_Development_FOUND)
++find_package (Python ${MV_PY_VERSION} EXACT COMPONENTS Interpreter Development.Module)
++if(NOT Python_Development.Module_FOUND)
+ 	message(FATAL_ERROR "The python3 development library from your distribution repo need to be installed first!")
+ endif()
+ 
+-- 
+2.53.0
+
