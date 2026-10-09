@@ -1,0 +1,27 @@
+From 2e8a26d4c8ba364d019c5cffd7aeb9b4d4ca8f00 Mon Sep 17 00:00:00 2001
+From: Pavel Zwerschke <pavel.zwerschke@quantco.com>
+Date: Sat, 10 Oct 2026 00:21:57 +0200
+Subject: [PATCH] Remove unused atlbase.h include
+
+Nothing in mvUtilities_win32.cpp uses ATL (CComPtr etc.). ATL is an
+optional MSVC component that is not installed for ARM64 on the
+conda-forge win-arm64 runners, so the include breaks the build there.
+---
+ src/mvUtilities_win32.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/mvUtilities_win32.cpp b/src/mvUtilities_win32.cpp
+index 989f1ff..0e1b7d2 100644
+--- a/src/mvUtilities_win32.cpp
++++ b/src/mvUtilities_win32.cpp
+@@ -15,7 +15,6 @@
+ #include <shlobj.h>
+ #include <shobjidl.h> 
+ #include <windows.h>
+-#include <atlbase.h> // Contains the declaration of CComPtr.
+ #include <array>
+ #include <codecvt>
+ #include <sstream>
+-- 
+2.53.0
+
